@@ -8,12 +8,11 @@
 		"ava": "^2.3.0",
 		"cross-env": "^5.2.0",
 		"puppeteer": "^1.19.0",
+		"screenres": "^2.0.1",
 		"ts-node": "^8.3.0",
 		"typescript": "^3.5.3"
 	},
-	"dependencies": {
-		"screenres": "^2.0.1"
-	},
+	"dependencies": {},
 	"ava": {
 		"compileEnhancements": false,
 		"extensions": [
