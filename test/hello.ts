@@ -1,8 +1,7 @@
 'use strict';
 
-import test, { ExecutionContext } from 'ava';
+import test from 'ava';
 import withPage from './helpers/_withPage';
-import { Page } from 'puppeteer';
 
 test('Example.com contains Example Domain heading', withPage, async (t, page) => {
     await page.goto('http://example.com');
