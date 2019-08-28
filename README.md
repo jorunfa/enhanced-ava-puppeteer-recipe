@@ -16,6 +16,7 @@ $ npm run demo test/hello.ts # runs a specific demo
 * Demo mode
 * AVA runs tests in parallell
 * Produces screenshots of failing tests (saved to OS' temp folder)
+* Typings for puppeteer's page and AVA's test ExecutionContext (assertions and such) when writing tests (the [`t`](https://github.com/avajs/ava/blob/master/docs/02-execution-context.md))
 
 ## Creds
 The original AVA recipes:
