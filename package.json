@@ -1,0 +1,14 @@
+{
+	"scripts": {
+		"test": "ava",
+		"demo": "cross-env headless=false ava"
+	},
+	"devDependencies": {
+		"ava": "^2.3.0",
+		"cross-env": "^5.2.0",
+		"puppeteer": "^1.19.0"
+	},
+	"dependencies": {
+		"screenres": "^2.0.1"
+	}
+}
