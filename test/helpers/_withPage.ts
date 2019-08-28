@@ -7,20 +7,16 @@ import { unlink as _unlink } from 'fs';
 import { promisify } from 'util';
 import { tmpdir } from 'os';
 import { join } from 'path';
-import screenres from 'screenres';
 
-const [screenWidth, screenHeight] = screenres.get();
 const unlink = promisify(_unlink);
 
 const device: devices.Device = process.env.device ? devices[process.env.device] : devices['iPhone 8'];
 const headless = process.env.headless ? (process.env.headless === "true") : true;
 const slowMo: number = +process.env.slowMo || (headless ? 0 : 65);
 
-// let position = { x: 0, y: 0 };
-
 function getBrowserConfig() {
-    const randomX = getRandomInt(0, screenWidth - device.viewport.width);
-    const randomY = getRandomInt(0, screenHeight - device.viewport.height);
+    const randomX = getRandomInt(0, 1200 - device.viewport.width);
+    const randomY = getRandomInt(0, 1000 - device.viewport.height);
     const result = {
         headless,
         slowMo,
@@ -30,17 +26,6 @@ function getBrowserConfig() {
         ],
     };
 
-    // TODO: find a way to order the windows nicely instead of using random position.
-    // let x = position.x + device.viewport.width + 125;
-    // let y = position.y;
-    // let rightSideOfBrowser = x+device.viewport.width;
-    // if (rightSideOfBrowser > screenWidth) {
-    //     x = 0;
-    //     y = y + device.viewport.height + 20 ;
-    // }
-    // position = { x, y };
-    // console.log(position);
-    // console.log(screenWidth);
     return result;
 }
 
