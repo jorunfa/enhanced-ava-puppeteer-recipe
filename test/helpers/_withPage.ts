@@ -11,9 +11,9 @@ import screenres from 'screenres';
 const [screenWidth] = screenres.get();
 const unlink = promisify(_unlink);
 
-const device = process.env.device ? process.env.device : devices['iPhone 8'];
+const device: devices.Device = process.env.device ? devices[process.env.device] : devices['iPhone 8'];
 const headless = process.env.headless ? (process.env.headless === "true") : true;
-const slowMo = process.env.slowMo || (headless ? 0 : 65);
+const slowMo: number = +process.env.slowMo || (headless ? 0 : 65);
 
 let position = { x: 0, y: 0 };
 

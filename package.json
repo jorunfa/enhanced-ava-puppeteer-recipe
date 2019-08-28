@@ -4,11 +4,23 @@
 		"demo": "cross-env headless=false ava"
 	},
 	"devDependencies": {
+		"@types/puppeteer": "^1.19.1",
 		"ava": "^2.3.0",
 		"cross-env": "^5.2.0",
-		"puppeteer": "^1.19.0"
+		"puppeteer": "^1.19.0",
+		"ts-node": "^8.3.0",
+		"typescript": "^3.5.3"
 	},
 	"dependencies": {
 		"screenres": "^2.0.1"
+	},
+	"ava": {
+		"compileEnhancements": false,
+		"extensions": [
+			"ts"
+		],
+		"require": [
+			"ts-node/register"
+		]
 	}
 }
