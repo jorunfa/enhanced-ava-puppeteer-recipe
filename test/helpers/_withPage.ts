@@ -9,33 +9,38 @@ import { tmpdir } from 'os';
 import { join } from 'path';
 import screenres from 'screenres';
 
-const [screenWidth] = screenres.get();
+const [screenWidth, screenHeight] = screenres.get();
 const unlink = promisify(_unlink);
 
 const device: devices.Device = process.env.device ? devices[process.env.device] : devices['iPhone 8'];
 const headless = process.env.headless ? (process.env.headless === "true") : true;
 const slowMo: number = +process.env.slowMo || (headless ? 0 : 65);
 
-let position = { x: 0, y: 0 };
+// let position = { x: 0, y: 0 };
 
 function getBrowserConfig() {
+    const randomX = getRandomInt(0, screenWidth - device.viewport.width);
+    const randomY = getRandomInt(0, screenHeight - device.viewport.height);
     const result = {
         headless,
         slowMo,
         args: [
             `--window-size=${device.viewport.width},${device.viewport.height}`,
-            `--window-position=${position.x},${position.y}`
+            `--window-position=${randomX},${randomY}`
         ],
     };
-    
-    let x = position.x + device.viewport.width + 125;
-    let y = position.y;
-    let rightSideOfBrowser = x+device.viewport.width;
-    if (rightSideOfBrowser > screenWidth) {
-        x = 0;
-        y = y + device.viewport.height + 20 ;
-    }
-    position = { x, y };
+
+    // TODO: find a way to order the windows nicely instead of using random position.
+    // let x = position.x + device.viewport.width + 125;
+    // let y = position.y;
+    // let rightSideOfBrowser = x+device.viewport.width;
+    // if (rightSideOfBrowser > screenWidth) {
+    //     x = 0;
+    //     y = y + device.viewport.height + 20 ;
+    // }
+    // position = { x, y };
+    // console.log(position);
+    // console.log(screenWidth);
     return result;
 }
 
@@ -86,4 +91,10 @@ function getScreenshotPath(browser: Browser, testName: String, error = false) {
 
 async function getBrowser() {
     return await puppeteer.launch(getBrowserConfig());
+}
+
+function getRandomInt(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
