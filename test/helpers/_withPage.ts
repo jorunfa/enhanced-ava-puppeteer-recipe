@@ -1,6 +1,7 @@
 'use strict';
 
-import puppeteer from 'puppeteer';
+import { ExecutionContext } from 'ava';
+import puppeteer, { Page, Browser } from 'puppeteer';
 import devices from 'puppeteer/DeviceDescriptors';
 import { unlink as _unlink } from 'fs';
 import { promisify } from 'util';
@@ -38,7 +39,7 @@ function getBrowserConfig() {
     return result;
 }
 
-export default async function runTest(t, run) {
+export default async function runTest(t: ExecutionContext, run: (arg0: ExecutionContext<unknown>, arg1: Page) => void) {
     const browser = await getBrowser();
     const page = await browser.newPage();
     await page.emulate(device);
@@ -76,9 +77,9 @@ export default async function runTest(t, run) {
     }
 }
 
-function getScreenshotPath(browser, test, error = false) {
+function getScreenshotPath(browser: Browser, testName: String, error = false) {
     const folder = tmpdir();
-    let fileName = `${browser.process().pid}-${test}-${new Date().toISOString()}${error ? "-error" : ""}.png`;
+    let fileName = `${browser.process().pid}-${testName}-${new Date().toISOString()}${error ? "-error" : ""}.png`;
     fileName = fileName.replace(/[\s:]/g, '_');
     return join(folder, fileName);
 }
